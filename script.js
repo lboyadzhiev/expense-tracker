@@ -80,6 +80,21 @@ const dispayMovements = (movements) => {
 };
 
 dispayMovements(account1.movements);
+
+const user = 'Stefen Thomas Williams';
+
+const createUserNames = (accts) => {
+    accts.forEach((acc) => {
+        acc.username = acc.owner
+            .toLocaleLowerCase()
+            .split('')
+            .map((name) => name[0])
+            .join('');
+    });
+};
+
+createUserNames(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
