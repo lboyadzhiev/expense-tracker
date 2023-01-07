@@ -79,7 +79,13 @@ const dispayMovements = (movements) => {
     });
 };
 
+const calcDisplayBalance = (movements) => {
+    const balance = movements.reduce((acc, mov) => acc + mov, 0);
+    labelBalance.textContent = `${balance} EUR`;
+};
+
 dispayMovements(account1.movements);
+calcDisplayBalance(account1.movements);
 
 const user = 'Stefen Thomas Williams';
 
