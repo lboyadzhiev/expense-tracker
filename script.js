@@ -71,7 +71,7 @@ const dispayMovements = (movements) => {
          <div class="movements__row">
           <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
           <div class="movements__date">3 days ago</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${mov} EUR</div>
         </div>
         `;
 
@@ -84,8 +84,28 @@ const calcDisplayBalance = (movements) => {
     labelBalance.textContent = `${balance} EUR`;
 };
 
+const calcDisplaySummary = (movements) => {
+    const incomes = movements.filter((mov) => mov > 0).reduce((acc, mov) => acc + mov, 0);
+
+    const outcomes = movements.filter((mov) => mov < 0).reduce((acc, mov) => acc + mov, 0);
+
+    const interest = movements
+        .filter((mov) => mov > 0)
+        .map((deposit) => (deposit * 1.2) / 100)
+        .filter((int, i, arr) => {
+            console.log(arr);
+            return int >= 1;
+        })
+        .reduce((acc, curr) => acc + curr, 0);
+
+    labelSumIn.textContent = `${incomes} eur`;
+    labelSumOut.textContent = `${Math.abs(outcomes)} eur`;
+    labelSumInterest.textContent = `${interest} eur`;
+};
+
 dispayMovements(account1.movements);
 calcDisplayBalance(account1.movements);
+calcDisplaySummary(account1.movements);
 
 const user = 'Stefen Thomas Williams';
 
