@@ -1,0 +1,75 @@
+1. What are the different data types present in js?
+
+    To know the type of JS variable, we can use the type of operator.
+
+    1.1. Primitive types:
+
+        -- String - It represent the series of characters and is written with single or double quotes.
+
+            Example:
+
+                let str = 'this is a string'; // using single quotes;
+                let strTwo = "another string"; // using double quotes;
+
+        -- Number - It represents a number and can be written with or without decimals.
+
+            Example:
+
+                let x = 3; // withoud decimals;
+                let y = 3.6; // with decimals;
+
+        -- BinInt - This data type is used to store numbers wich are above the limitation of number data type.
+
+            Example:
+
+                let bigInteger = 234567890123456789012345678901234567890;
+
+        -- Boolean - It represent a logical entity and can have only two values: 'true' of 'false'. Booleans are generally used for conditional testing.
+
+            Example:
+
+                let a = 2;
+                let b = 3;
+                let c = 2;
+                (a == b) // returns false;
+                (a == c) // returns true;
+
+        -- Undefined - when a variable is declared but not assigned, it has the value of undefined and it's type is also undefined.
+
+            Example:
+
+                let x; // value of 'x' is undefined;
+                let y = undefined; // we can also set the value of variable as undefined;
+
+        -- Null - It represents a non-existent or a invalid value;
+
+            Example:
+
+                let z = null;
+
+        -- Symbol - It is a new data type introduced in the ES6 version of JS. It is used to store an anonymous and unique value;
+
+            Example:
+
+                let symbol = Symbol('symbol');
+
+    1.2. Non-primitive types:
+
+        Primitive data types can store only a single value. To store multiple and complex values, non-primitive data types are used. Object - Used to store collection of data.
+
+            Example:
+
+                let obj = {
+                    x: 43,
+                    y: "Hello World',
+                    z: function() {
+                        return this.x;
+                    }
+                }
+
+                let arr = [5, 43, 6, 7];
+
+        Note: It is important to remember that any data type that is not a primitive data type, is of Object type in js;
+
+
+
