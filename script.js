@@ -9,6 +9,7 @@ const account1 = {
     owner: 'Jonas Schmedtmann',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2, // %
+    username: 'js',
     pin: 1111,
 };
 
@@ -120,6 +121,28 @@ const createUserNames = (accts) => {
 };
 
 createUserNames(accounts);
+
+// EVENT HANDLERS
+let currentAccount;
+btnLogin.addEventListener('click', (event) => {
+    // prevent form for submiting
+    event.preventDefault();
+
+    console.log('username', inputLoginUsername.value);
+    currentAccount = accounts.find((account) => account.username === inputLoginUsername.value);
+
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+        // display UI and message
+        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+        console.log('in');
+        containerApp.style.opacity = 100;
+        // display movements
+
+        // display balance
+
+        // display summary
+    }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
