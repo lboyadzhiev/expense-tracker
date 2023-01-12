@@ -8,8 +8,7 @@
 const account1 = {
     owner: 'Jonas Schmedtmann',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-    interestRate: 1.2, // %
-    username: 'js',
+    interestRate: 1.2, //
     pin: 1111,
 };
 
@@ -85,14 +84,14 @@ const calcDisplayBalance = (movements) => {
     labelBalance.textContent = `${balance} EUR`;
 };
 
-const calcDisplaySummary = (movements) => {
-    const incomes = movements.filter((mov) => mov > 0).reduce((acc, mov) => acc + mov, 0);
+const calcDisplaySummary = (acc) => {
+    const incomes = acc.movements.filter((mov) => mov > 0).reduce((acc, mov) => acc + mov, 0);
 
-    const outcomes = movements.filter((mov) => mov < 0).reduce((acc, mov) => acc + mov, 0);
+    const outcomes = acc.movements.filter((mov) => mov < 0).reduce((acc, mov) => acc + mov, 0);
 
-    const interest = movements
+    const interest = acc.movements
         .filter((mov) => mov > 0)
-        .map((deposit) => (deposit * 1.2) / 100)
+        .map((deposit) => (deposit * acc.interestRate) / 100)
         .filter((int, i, arr) => {
             console.log(arr);
             return int >= 1;
@@ -104,17 +103,13 @@ const calcDisplaySummary = (movements) => {
     labelSumInterest.textContent = `${interest} eur`;
 };
 
-dispayMovements(account1.movements);
-calcDisplayBalance(account1.movements);
-calcDisplaySummary(account1.movements);
-
 const user = 'Stefen Thomas Williams';
 
-const createUserNames = (accts) => {
-    accts.forEach((acc) => {
+const createUserNames = (accounts) => {
+    accounts.forEach((acc) => {
         acc.username = acc.owner
             .toLocaleLowerCase()
-            .split('')
+            .split(' ')
             .map((name) => name[0])
             .join('');
     });
@@ -122,25 +117,32 @@ const createUserNames = (accts) => {
 
 createUserNames(accounts);
 
-// EVENT HANDLERS
+// EVENT HANDLERS LOGIN
 let currentAccount;
-btnLogin.addEventListener('click', (event) => {
-    // prevent form for submiting
-    event.preventDefault();
 
-    console.log('username', inputLoginUsername.value);
-    currentAccount = accounts.find((account) => account.username === inputLoginUsername.value);
+btnLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentAccount = accounts.find((acc) => acc.username === inputLoginUsername.value);
 
     if (currentAccount?.pin === Number(inputLoginPin.value)) {
-        // display UI and message
-        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
-        console.log('in');
+        // display UI and welcome message
+        labelWelcome.textContent = `Welcome back ${currentAccount.owner.split(' ')[0]}`;
+
         containerApp.style.opacity = 100;
+
+        inputLoginUsername.value = '';
+        inputLoginPin.value = '';
+
+        inputLoginPin.blur();
+
         // display movements
+        dispayMovements(currentAccount.movements);
 
         // display balance
+        calcDisplayBalance(currentAccount.movements);
 
         // display summary
+        calcDisplaySummary(currentAccount);
     }
 });
 
