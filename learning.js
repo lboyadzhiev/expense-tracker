@@ -37,3 +37,5 @@ const totalDepositsUSD = movements
     .reduce((acc, mov) => acc + mov, 0);
 
 console.log('total', totalDepositsUSD);
+
+console.log('komentar');
