@@ -184,6 +184,22 @@ btnTransfer.addEventListener('click', (e) => {
   inputTransferAmount.value = inputTransferTo.value = '';
 });
 
+// ASK FOR LOAD FROM THE BANK
+btnLoan.addEventListener('click', (e) => {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+
+    updateUi(currentAccount);
+  }
+
+  inputLoanAmount.value = '';
+});
 // CLOSE AN ACCOUNT
 btnClose.addEventListener('click', (e) => {
   e.preventDefault();
